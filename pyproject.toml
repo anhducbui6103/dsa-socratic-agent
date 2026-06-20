@@ -1,0 +1,15 @@
+[project]
+name = "dsa-socratic-agent"
+version = "0.1.0"
+description = "LLM-powered multi-agent tutor hỗ trợ học Cấu trúc dữ liệu và Giải thuật bằng gợi ý Socratic."
+requires-python = ">=3.10"
+readme = "README.md"
+dependencies = [
+    "langgraph>=0.2.0",
+    "python-dotenv>=1.0.0",
+    "streamlit>=1.37.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

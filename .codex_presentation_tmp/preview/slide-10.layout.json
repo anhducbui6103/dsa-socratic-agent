@@ -1,0 +1,710 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/stzr5p",
+    "id": "stzr5p",
+    "slide": 10,
+    "layoutId": "65ec4723-c1b4-4433-9fcc-ba4d85be7495",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "65ec4723-c1b4-4433-9fcc-ba4d85be7495",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kb6xkf6d",
+      "id": "1",
+      "bbox": [
+        70,
+        36,
+        420,
+        28
+      ],
+      "geometry": "rect",
+      "text": "DSA SOCRATIC AGENT",
+      "textPreview": "DSA SOCRATIC AGENT",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#1F4E79",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "DSA SOCRATIC AGENT"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "DSA SOCRATIC AGENT",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#1F4E79",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "DSA SOCRATIC AGENT",
+              "fontSize": 14,
+              "color": "#1F4E79",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqd4vmtw",
+      "id": "2",
+      "bbox": [
+        70,
+        72,
+        850,
+        58
+      ],
+      "geometry": "rect",
+      "text": "Quality Layer",
+      "textPreview": "Quality Layer",
+      "resolvedFontSize": 38,
+      "resolvedTextStyle": {
+        "fontSize": 38,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Quality Layer"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Quality Layer",
+          "resolvedTextStyle": {
+            "fontSize": 38,
+            "color": "#020618",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Quality Layer",
+              "fontSize": 38,
+              "color": "#020618",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "3",
+      "bbox": [
+        85,
+        160,
+        345,
+        210
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF2FF",
+      "lineColor": "#E2E8F0",
+      "lineWidth": 1
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9knih4by",
+      "id": "4",
+      "bbox": [
+        109,
+        178,
+        297,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Testcase Generator",
+      "textPreview": "Testcase Generator",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Testcase Generator"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Testcase Generator",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#020618",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Testcase Generator",
+              "fontSize": 21,
+              "color": "#020618",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kzupwb2h",
+      "id": "5",
+      "bbox": [
+        109,
+        222,
+        297,
+        134
+      ],
+      "geometry": "rect",
+      "text": "Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.",
+      "textPreview": "Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#45556C",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Sinh basic, edge, adversarial/stress"
+          },
+          {
+            "index": 2,
+            "text": "cases. Phân biệt validation và trace-only"
+          },
+          {
+            "index": 3,
+            "text": "testcase."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#45556C"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.",
+              "fontSize": 17,
+              "color": "#45556C"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/re1w7mp0",
+      "id": "6",
+      "bbox": [
+        468,
+        160,
+        345,
+        210
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF7EE",
+      "lineColor": "#E2E8F0",
+      "lineWidth": 1
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2t83itgf",
+      "id": "7",
+      "bbox": [
+        492,
+        178,
+        297,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Execution Validator",
+      "textPreview": "Execution Validator",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Execution Validator"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Execution Validator",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#020618",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Execution Validator",
+              "fontSize": 21,
+              "color": "#020618",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gr2p8nq",
+      "id": "8",
+      "bbox": [
+        492,
+        222,
+        297,
+        134
+      ],
+      "geometry": "rect",
+      "text": "Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.",
+      "textPreview": "Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#45556C",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Chạy Python code trên testcase có"
+          },
+          {
+            "index": 2,
+            "text": "expected output, giới hạn timeout và"
+          },
+          {
+            "index": 3,
+            "text": "chuẩn hóa kết quả."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#45556C"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.",
+              "fontSize": 17,
+              "color": "#45556C"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gvy90je9",
+      "id": "9",
+      "bbox": [
+        850,
+        160,
+        345,
+        210
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#F1EAFE",
+      "lineColor": "#E2E8F0",
+      "lineWidth": 1
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yd0z6103",
+      "id": "10",
+      "bbox": [
+        874,
+        178,
+        297,
+        32
+      ],
+      "geometry": "rect",
+      "text": "Pedagogy Critic",
+      "textPreview": "Pedagogy Critic",
+      "resolvedFontSize": 21,
+      "resolvedTextStyle": {
+        "fontSize": 21,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Pedagogy Critic"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Pedagogy Critic",
+          "resolvedTextStyle": {
+            "fontSize": 21,
+            "color": "#020618",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Pedagogy Critic",
+              "fontSize": 21,
+              "color": "#020618",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rytsvu9k",
+      "id": "11",
+      "bbox": [
+        874,
+        222,
+        297,
+        134
+      ],
+      "geometry": "rect",
+      "text": "Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.",
+      "textPreview": "Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.",
+      "resolvedFontSize": 17,
+      "resolvedTextStyle": {
+        "fontSize": 17,
+        "typeface": "+mn-lt",
+        "color": "#45556C",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Kiểm phản hồi nháp: không lộ full"
+          },
+          {
+            "index": 2,
+            "text": "solution, đúng hint_level, đủ tính"
+          },
+          {
+            "index": 3,
+            "text": "Socratic."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.",
+          "resolvedTextStyle": {
+            "fontSize": 17,
+            "color": "#45556C"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.",
+              "fontSize": 17,
+              "color": "#45556C"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/3q5o7qpg",
+      "id": "12",
+      "bbox": [
+        260,
+        430,
+        760,
+        170
+      ],
+      "geometry": "roundRect",
+      "alt": "Pedagogy review code snippet",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 7059"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "753f3c9a-1d9b-46f1-a937-0ceda85cbfb4",
+        "contentType": "image/png",
+        "byteLength": 56405
+      }
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/90je9cvi",
+      "id": "13",
+      "bbox": [
+        1160,
+        660,
+        50,
+        24
+      ],
+      "geometry": "rect",
+      "text": "10",
+      "textPreview": "10",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#90A1B9",
+        "alignment": "right",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "10"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "10",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#90A1B9",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "10",
+              "fontSize": 14,
+              "color": "#90A1B9",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

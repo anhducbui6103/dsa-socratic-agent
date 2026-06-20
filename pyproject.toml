@@ -1,0 +1,10 @@
+[project]
+name = "dsa-socratic-agent"
+version = "0.1.0"
+description = "Prototype AI Agent hỗ trợ học Cấu trúc dữ liệu và Giải thuật bằng gợi ý Socratic."
+requires-python = ">=3.10"
+readme = "README.md"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -265,7 +265,7 @@ st.markdown(
 
 
 def create_agent() -> DsaTutorGraph:
-    model = st.session_state.get("model_name", "gemini-flash-latest").strip() or "gemini-flash-latest"
+    model = st.session_state.get("model_name", "google/gemini-2.5-flash").strip() or "google/gemini-2.5-flash"
     llm_client = GeminiLlmClient.from_env(model=model)
     agent = DsaLearningAgent(enable_execution=True, llm_client=llm_client)
     return DsaTutorGraph(agent)
@@ -377,7 +377,7 @@ def process_pending_turn(session: ChatSession) -> None:
 
 
 if "model_name" not in st.session_state:
-    st.session_state.model_name = "gemini-flash-latest"
+    st.session_state.model_name = "google/gemini-2.5-flash"
 if "chat_sessions" not in st.session_state:
     first_session = create_session()
     st.session_state.chat_sessions = {first_session.id: first_session}

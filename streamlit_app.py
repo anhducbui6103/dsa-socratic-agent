@@ -1,14 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from html import escape
 import sys
 from pathlib import Path
-from urllib.parse import quote
 from uuid import uuid4
 
 import streamlit as st
-import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -18,7 +15,7 @@ if str(SRC_DIR) not in sys.path:
 
 from dsa_agent import DsaLearningAgent
 from dsa_agent.graph_workflow import DsaTutorGraph
-from dsa_agent.llm_client import GeminiLlmClient, MissingApiKeyError, TransientLlmError
+from dsa_agent.llm_client import GeminiLlmClient, MissingApiKeyError
 
 
 @dataclass
@@ -37,19 +34,19 @@ st.markdown(
     <style>
     :root {
         --sidebar-width: 18rem;
-        --right-width: 23rem;
-        --page-bg: #ffffff;
         --sidebar-bg: #f4f4f5;
-        --border: #d9dce2;
-        --muted: #6b7280;
-        --ink: #0f172a;
-        --soft: #eef0f4;
-        --active: #dedee1;
-        --blue: #0f3764;
+        --border-soft: rgba(120, 120, 120, 0.18);
+        --border-mid: rgba(120, 120, 120, 0.22);
+        --hover-bg: #e9e9eb;
+        --active-bg: #dedee1;
+        --text-main: #111827;
+        --text-muted: #6b7280;
+        --row-height: 2.7rem;
+        --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.05);
     }
 
     .block-container {
-        padding: 0 !important;
+        padding: 0.7rem 0 0 0 !important;
         max-width: 100% !important;
     }
 
@@ -65,207 +62,118 @@ st.markdown(
         gap: 0 !important;
     }
 
-    div[data-testid="column"]:first-of-type {
-        flex: 0 0 var(--sidebar-width) !important;
-        width: var(--sidebar-width) !important;
-        min-width: 12rem !important;
-        max-width: 24rem !important;
+    div[data-testid="column"]:has(.sidebar-anchor) {
         background: var(--sidebar-bg);
-        min-height: 100vh;
-        border-right: 1px solid var(--border);
-        padding: 1rem 0.85rem;
-        overflow: hidden;
+        min-height: calc(100vh - 0.7rem);
+        padding: 0.9rem 0.65rem 1rem 0.65rem;
+        border-right: 1px solid rgba(120, 120, 120, 0.14);
     }
 
-    div[data-testid="column"]:nth-of-type(2) {
-        display: none;
+    div[data-testid="column"]:has(.separator-anchor) {
+        padding: 0 !important;
     }
 
-    div[data-testid="column"]:nth-of-type(3) {
-        background: var(--page-bg);
-        min-height: 100vh;
-        padding: 1.45rem 2.3rem 7.5rem 2.8rem;
+    div[data-testid="column"]:has(.chat-anchor) {
+        padding: 0.8rem 1.5rem 6.6rem 1.5rem;
     }
 
-    div[data-testid="column"]:nth-of-type(4) {
-        flex: 0 0 var(--right-width) !important;
-        width: var(--right-width) !important;
-        background: var(--page-bg);
-        min-height: 100vh;
-        padding: 2.9rem 1.7rem 2rem 1rem;
+    div[data-testid="column"]:has(.detail-anchor) {
+        padding: 0.8rem 1rem 2rem 1rem;
     }
 
     div[data-testid="stChatInput"] {
         position: fixed;
-        left: calc(var(--sidebar-width) + 5rem);
-        right: calc(var(--right-width) + 3rem);
-        bottom: 1.4rem;
+        left: 23rem;
+        right: 27rem;
+        bottom: 1rem;
         z-index: 100;
-        background: transparent;
+        background: var(--background-color);
     }
 
     div[data-testid="stChatInput"] > div {
-        border-radius: 10px !important;
-        background: #eef0f4;
-        border: 0 !important;
+        border-radius: 12px;
     }
 
-    .sidebar-title {
-        font-weight: 800;
-        font-size: 1.05rem;
-        color: #3f3f46;
-        margin: 0.25rem 0 0.75rem 0.15rem;
+    .chat-list-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin: 0.35rem 0.35rem 0.75rem 0.35rem;
     }
 
-    .app-title {
-        font-weight: 800;
-        font-size: 1.08rem;
-        color: var(--blue);
-        margin: 0 0 1.9rem 0;
+    .new-session-wrap div[data-testid="stButton"] > button,
+    .session-title-wrap div[data-testid="stButton"] > button,
+    .session-delete-wrap div[data-testid="stButton"] > button {
+        border: 1px solid rgba(120, 120, 120, 0.18) !important;
+        box-shadow: none !important;
+        min-height: var(--row-height) !important;
+        height: var(--row-height) !important;
+        border-radius: 12px !important;
+        color: var(--text-main) !important;
+        background: rgba(255, 255, 255, 0.92) !important;
     }
 
-    .new-session-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #d1d5db !important;
-        background: #ffffff !important;
+    .new-session-wrap div[data-testid="stButton"] > button {
+        justify-content: center !important;
+        font-weight: 500 !important;
+        margin-bottom: 0.65rem;
+    }
+
+    .new-session-wrap div[data-testid="stButton"] > button:hover,
+    .session-title-wrap div[data-testid="stButton"] > button:hover,
+    .session-delete-wrap div[data-testid="stButton"] > button:hover {
+        background: var(--hover-bg) !important;
+        color: var(--text-main) !important;
+    }
+
+    .session-title-wrap div[data-testid="stButton"] > button {
+        justify-content: flex-start !important;
+        padding: 0.35rem 0.8rem !important;
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    .session-delete-wrap div[data-testid="stButton"] > button {
+        justify-content: center !important;
+        padding: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        font-size: 0.95rem !important;
+        color: #6b7280 !important;
+    }
+
+    .session-delete-wrap div[data-testid="stButton"] > button:hover {
         color: #111827 !important;
-        height: 1.72rem;
-        border-radius: 6px;
-        font-size: 0.82rem;
-        text-decoration: none !important;
-        margin: 0.25rem 0 1rem 0;
     }
 
-    .new-session-link:hover {
-        background: #f8fafc !important;
+    .active-session-row + div .session-title-wrap div[data-testid="stButton"] > button,
+    .active-session-row + div .session-delete-wrap div[data-testid="stButton"] > button {
+        background: var(--active-bg) !important;
+        font-weight: 600 !important;
     }
 
-    .session-row {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 2rem;
-        align-items: center;
-        height: 2rem;
-        border-radius: 6px;
-        margin: 0.08rem 0;
-        overflow: hidden;
-        background: transparent;
+    .vertical-separator {
+        border-left: 1px solid var(--border-mid);
+        min-height: calc(100vh - 0.7rem);
+        margin-left: 0.25rem;
     }
 
-    .session-row:hover {
-        background: #e9e9eb;
-    }
-
-    .session-row.active {
-        background: var(--active);
-    }
-
-    .session-title-link {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        min-width: 0;
-        padding: 0 0.55rem;
-        color: #24242a !important;
-        text-decoration: none !important;
-        font-size: 0.88rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .session-row.active .session-title-link {
-        font-weight: 600;
-    }
-
-    .session-delete-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        color: #71717a !important;
-        text-decoration: none !important;
-        font-size: 0.82rem;
-    }
-
-    .session-delete-link:hover {
-        color: #111827 !important;
-        background: #d4d4d8;
-    }
-
-    .chat-shell {
-        max-width: 760px;
-        margin: 0 auto;
-    }
-
-    .sidebar-resize-handle {
-        position: fixed;
-        left: calc(var(--sidebar-width) - 3px);
-        top: 0;
-        width: 6px;
-        height: 100vh;
-        cursor: col-resize;
-        z-index: 9999;
-        background: transparent;
-    }
-
-    .sidebar-resize-handle:hover {
-        background: rgba(15, 55, 100, 0.12);
-    }
-
-    .empty-chat {
-        color: var(--muted);
-        padding-top: 24vh;
-        text-align: center;
-        font-size: 1rem;
-    }
-
-    .message-row {
-        display: flex;
-        margin: 1rem 0;
-    }
-
-    .message-row.user {
-        justify-content: flex-start;
-        padding-left: 1rem;
-    }
-
-    .message-row.assistant {
-        justify-content: center;
-    }
-
-    .message-bubble {
-        max-width: 560px;
-        border-radius: 10px;
-        padding: 0.85rem 1.05rem;
-        line-height: 1.55;
-        font-size: 0.92rem;
-        color: #111827;
-    }
-
-    .message-bubble.user {
-        background: #eef0f4;
-        border: 1px solid #dfe3ea;
-    }
-
-    .message-bubble.assistant {
-        background: #ffffff;
-        border: 1px solid #d8dde6;
+    .detail-top-spacer {
+        height: 2.2rem;
     }
 
     .panel-card {
-        border: 1px solid #d9dde6;
-        border-radius: 12px;
-        padding: 0.95rem 1.05rem;
-        margin-bottom: 1.1rem;
-        background: #ffffff;
-        box-shadow: none;
+        border: 1px solid var(--border-soft);
+        border-radius: 18px;
+        padding: 1rem 1.1rem;
+        margin-bottom: 1rem;
+        box-shadow: var(--shadow-soft);
+        background: rgba(255, 255, 255, 0.72);
     }
 
     .panel-title {
-        color: #71717a;
-        font-size: 0.82rem;
+        color: #8a8f98;
+        font-size: 0.95rem;
         margin-bottom: 0.75rem;
     }
 
@@ -273,111 +181,42 @@ st.markdown(
         display: flex;
         justify-content: space-between;
         gap: 1rem;
-        padding: 0.34rem 0;
+        padding: 0.45rem 0;
+        border-bottom: 1px solid rgba(120, 120, 120, 0.12);
+    }
+
+    .stat-row:last-child {
+        border-bottom: 0;
     }
 
     .stat-label {
-        color: #52525b;
-        font-size: 0.84rem;
+        color: var(--text-muted);
     }
 
     .stat-value {
-        font-size: 0.84rem;
-        font-weight: 700;
-        color: #18181b;
+        font-weight: 600;
         text-align: right;
     }
 
-    .mini-item {
-        font-size: 0.82rem;
-        color: #18181b;
-        margin: 0.35rem 0 0.15rem 0;
+    .empty-chat {
+        color: var(--text-muted);
+        padding: 30vh 0 0 0;
+        text-align: center;
     }
 
-    .mini-caption {
-        color: #71717a;
-        font-size: 0.76rem;
-        line-height: 1.35;
-    }
-
-    @media (max-width: 1100px) {
+    @media (max-width: 900px) {
         div[data-testid="stChatInput"] {
-            left: 14rem;
-            right: 2rem;
+            left: 1rem;
+            right: 1rem;
         }
 
-        div[data-testid="column"]:nth-of-type(4) {
+        div[data-testid="column"]:has(.detail-anchor) {
             display: none;
         }
     }
     </style>
     """,
     unsafe_allow_html=True,
-)
-
-components.html(
-    """
-    <script>
-    const doc = window.parent.document;
-    const root = doc.documentElement;
-    const key = "dsa-agent-sidebar-width";
-
-    function topLevelColumns() {
-        return [...doc.querySelectorAll('div[data-testid="column"]')]
-            .filter((node) => node.closest('div[data-testid="stHorizontalBlock"]') === node.parentElement);
-    }
-
-    function setWidth(px) {
-        const bounded = Math.max(190, Math.min(380, px));
-        root.style.setProperty("--sidebar-width", bounded + "px");
-        window.localStorage.setItem(key, String(bounded));
-        const cols = topLevelColumns();
-        if (cols[0]) {
-            cols[0].style.flex = `0 0 ${bounded}px`;
-            cols[0].style.width = `${bounded}px`;
-        }
-        if (handle) {
-            handle.style.left = `${bounded - 3}px`;
-        }
-    }
-
-    let handle = doc.getElementById("dsa-sidebar-resize-handle");
-    if (!handle) {
-        handle = doc.createElement("div");
-        handle.id = "dsa-sidebar-resize-handle";
-        handle.className = "sidebar-resize-handle";
-        Object.assign(handle.style, {
-            position: "fixed",
-            top: "0",
-            width: "8px",
-            height: "100vh",
-            cursor: "col-resize",
-            zIndex: "999999",
-            background: "transparent"
-        });
-        doc.body.appendChild(handle);
-    }
-
-    const saved = Number(window.localStorage.getItem(key));
-    if (saved) setWidth(saved);
-    else setWidth(288);
-
-    let dragging = false;
-    handle.onmousedown = (event) => {
-        dragging = true;
-        event.preventDefault();
-    };
-    doc.onmousemove = (event) => {
-        if (!dragging) return;
-        setWidth(event.clientX);
-    };
-    doc.onmouseup = () => {
-        dragging = false;
-    };
-    </script>
-    """,
-    height=0,
-    width=0,
 )
 
 
@@ -423,37 +262,6 @@ def delete_session(session_id: str) -> None:
         st.session_state.active_session_id = next(reversed(sessions))
 
 
-def query_link(**params: str) -> str:
-    return "?" + "&".join(f"{key}={quote(value)}" for key, value in params.items())
-
-
-def clear_query_params() -> None:
-    st.query_params.clear()
-
-
-def handle_sidebar_actions() -> None:
-    params = st.query_params
-    new_chat = params.get("new_chat")
-    active_session = params.get("active_session")
-    delete_session_id = params.get("delete_session")
-
-    if new_chat:
-        new_session()
-        clear_query_params()
-        st.rerun()
-
-    if active_session and active_session in st.session_state.chat_sessions:
-        set_active_session(active_session)
-        st.session_state.pending_delete_session_id = None
-        clear_query_params()
-        st.rerun()
-
-    if delete_session_id and delete_session_id in st.session_state.chat_sessions:
-        st.session_state.pending_delete_session_id = delete_session_id
-        clear_query_params()
-        st.rerun()
-
-
 @st.dialog("Xoá phiên chat?")
 def confirm_delete_session() -> None:
     session_id = st.session_state.pending_delete_session_id
@@ -461,71 +269,43 @@ def confirm_delete_session() -> None:
 
     if session is None:
         st.session_state.pending_delete_session_id = None
-        st.rerun()
+        return
 
     st.write(f"Bạn có chắc muốn xoá phiên **{session.title}** không?")
     st.caption("Hành động này sẽ xoá nội dung chat và trạng thái học tập của phiên này.")
 
-    if st.button("Xoá phiên", use_container_width=True, type="primary"):
-        delete_session(session_id)
-        st.session_state.pending_delete_session_id = None
-        st.rerun()
-    if st.button("Huỷ", use_container_width=True):
-        st.session_state.pending_delete_session_id = None
-        st.rerun()
+    delete_col, cancel_col = st.columns(2)
+    with delete_col:
+        if st.button("Xoá phiên", use_container_width=True):
+            delete_session(session_id)
+            st.session_state.pending_delete_session_id = None
+            st.rerun()
+    with cancel_col:
+        if st.button("Huỷ", use_container_width=True):
+            st.session_state.pending_delete_session_id = None
+            st.rerun()
 
 
-def update_session_title(session: ChatSession) -> None:
+def update_session_title(session: ChatSession, first_message: str) -> None:
     if session.title != "Phiên mới":
         return
 
-    user_messages = [message["content"] for message in session.messages if message["role"] == "user"]
-    if not user_messages:
-        return
-
-    if session.graph is None:
-        words = " ".join(user_messages[0].split()[:5])
-        session.title = words or "Phiên học DSA"
-        return
-
-    session.title = session.graph.agent.generate_session_title(user_messages[:2])
-
-
-def render_message(role: str, content: str) -> None:
-    safe = escape(content).replace("\n", "<br>")
-    st.markdown(
-        f"""
-        <div class="message-row {role}">
-            <div class="message-bubble {role}">{safe}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def process_pending_turn(session: ChatSession) -> None:
-    user_message = st.session_state.pending_user_message
-    if not user_message or st.session_state.pending_response_session_id != session.id:
-        return
-
-    try:
-        if session.graph is None:
-            session.graph = create_agent()
-        turn = session.graph.run(user_message)
-        assistant_message = turn.response
-        update_session_title(session)
-    except MissingApiKeyError as exc:
-        assistant_message = f"Thiếu Gemini API key: `{exc}`. Hãy cấu hình khóa LLM rồi tạo phiên mới."
-    except TransientLlmError as exc:
-        assistant_message = f"{exc}\n\nTin nhắn của bạn vẫn đã được lưu trong phiên chat. Bạn có thể bấm gửi lại sau khi Gemini hết quá tải."
-    except Exception as exc:
-        assistant_message = f"Hệ thống gặp lỗi khi xử lý lượt này: `{exc}`"
-    finally:
-        st.session_state.pending_response_session_id = None
-        st.session_state.pending_user_message = None
-
-    session.messages.append({"role": "assistant", "content": assistant_message})
-    st.rerun()
+    normalized = first_message.lower()
+    if "```" in first_message or "def " in normalized or "class " in normalized:
+        session.title = "Phân tích code"
+    elif any(keyword in normalized for keyword in ("gợi ý", "hint", "bị tắc", "không biết làm")):
+        session.title = "Xin gợi ý"
+    elif any(keyword in normalized for keyword in ("full code", "lời giải", "đáp án")):
+        session.title = "Yêu cầu lời giải"
+    elif any(keyword in normalized for keyword in ("quy hoạch động", "dp")):
+        session.title = "Bài quy hoạch động"
+    elif any(keyword in normalized for keyword in ("đồ thị", "graph", "bfs", "dfs")):
+        session.title = "Bài đồ thị"
+    elif any(keyword in normalized for keyword in ("mảng", "chuỗi", "array", "string")):
+        session.title = "Bài mảng/chuỗi"
+    else:
+        words = " ".join(first_message.split()[:5])
+        session.title = f"Bài DSA: {words}" if words else "Phiên học DSA"
 
 
 if "model_name" not in st.session_state:
@@ -536,45 +316,46 @@ if "chat_sessions" not in st.session_state:
     st.session_state.active_session_id = first_session.id
 if "pending_delete_session_id" not in st.session_state:
     st.session_state.pending_delete_session_id = None
-if "pending_response_session_id" not in st.session_state:
-    st.session_state.pending_response_session_id = None
-if "pending_user_message" not in st.session_state:
-    st.session_state.pending_user_message = None
 
-handle_sidebar_actions()
 
-session_list_col, spacer_col, chat_col, detail_col = st.columns([0.18, 0.001, 0.54, 0.279], gap="small")
+session_list_col, separator_col, chat_col, detail_col = st.columns([0.17, 0.015, 0.54, 0.275], gap="small")
 
 with session_list_col:
-    st.markdown('<div class="sidebar-title">Đoạn chat</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sidebar-anchor"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="chat-list-title">Đoạn chat</div>', unsafe_allow_html=True)
 
-    st.markdown(
-        f'<a class="new-session-link" href="{query_link(new_chat="1")}">+ Phiên mới</a>',
-        unsafe_allow_html=True,
-    )
+    st.markdown('<div class="new-session-wrap">', unsafe_allow_html=True)
+    if st.button("+ Phiên mới", use_container_width=True):
+        new_session()
+    st.markdown('</div>', unsafe_allow_html=True)
 
     for session in list(st.session_state.chat_sessions.values()):
-        active_class = " active" if session.id == st.session_state.active_session_id else ""
-        st.markdown(
-            f"""
-            <div class="session-row{active_class}">
-                <a class="session-title-link" href="{query_link(active_session=session.id)}">{escape(session.title)}</a>
-                <a class="session-delete-link" href="{query_link(delete_session=session.id)}" title="Xoá phiên">🗑</a>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        selected = session.id == st.session_state.active_session_id
+        if selected:
+            st.markdown('<span class="active-session-row"></span>', unsafe_allow_html=True)
+        title_col, delete_col = st.columns([0.84, 0.16], gap="small")
+        with title_col:
+            st.markdown('<div class="session-title-wrap">', unsafe_allow_html=True)
+            if st.button(session.title, key=f"session-{session.id}", use_container_width=True):
+                set_active_session(session.id)
+                st.session_state.pending_delete_session_id = None
+            st.markdown('</div>', unsafe_allow_html=True)
+        with delete_col:
+            st.markdown('<div class="session-delete-wrap">', unsafe_allow_html=True)
+            if st.button("🗑", key=f"ask-delete-{session.id}", use_container_width=True):
+                st.session_state.pending_delete_session_id = session.id
+            st.markdown('</div>', unsafe_allow_html=True)
 
     if st.session_state.pending_delete_session_id:
         confirm_delete_session()
 
-with spacer_col:
-    st.empty()
+with separator_col:
+    st.markdown('<div class="separator-anchor"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="vertical-separator"></div>', unsafe_allow_html=True)
 
 with chat_col:
+    st.markdown('<div class="chat-anchor"></div>', unsafe_allow_html=True)
     session = current_session()
-    st.markdown('<div class="chat-shell">', unsafe_allow_html=True)
-    st.markdown('<div class="app-title">DSA Socratic Agent</div>', unsafe_allow_html=True)
 
     if not session.messages:
         st.markdown(
@@ -583,21 +364,29 @@ with chat_col:
         )
     else:
         for message in session.messages:
-            render_message(message["role"], message["content"])
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    if st.session_state.pending_response_session_id == session.id:
-        with st.spinner("Agent đang suy nghĩ..."):
-            process_pending_turn(session)
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
 
     if user_message := st.chat_input("Nhập đề bài, xin gợi ý, hoặc gửi code của bạn..."):
         session.messages.append({"role": "user", "content": user_message})
-        st.session_state.pending_response_session_id = session.id
-        st.session_state.pending_user_message = user_message
+        update_session_title(session, user_message)
+
+        try:
+            if session.graph is None:
+                session.graph = create_agent()
+            turn = session.graph.run(user_message)
+            assistant_message = turn.response
+        except MissingApiKeyError as exc:
+            assistant_message = f"Thiếu Gemini API key: `{exc}`. Hãy paste key vào file `.env` rồi tạo phiên mới."
+        except Exception as exc:
+            assistant_message = f"Hệ thống gặp lỗi khi xử lý lượt này: `{exc}`"
+
+        session.messages.append({"role": "assistant", "content": assistant_message})
         st.rerun()
 
 with detail_col:
+    st.markdown('<div class="detail-anchor"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="detail-top-spacer"></div>', unsafe_allow_html=True)
     session = current_session()
     graph = session.graph
 
@@ -606,12 +395,13 @@ with detail_col:
             """
             <div class="panel-card">
                 <div class="panel-title">Environment</div>
-                <div class="stat-row"><span class="stat-label">LLM</span><span class="stat-value">Missing key</span></div>
+                <div class="stat-row"><span class="stat-label">Gemini API</span><span class="stat-value">Missing key</span></div>
+                <div class="stat-row"><span class="stat-label">Sandbox</span><span class="stat-value">On</span></div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        st.warning("Hãy cấu hình khóa LLM rồi tạo phiên mới.")
+        st.warning("Paste `GEMINI_API_KEY` vào file `.env` rồi tạo phiên mới.")
     else:
         state = graph.agent.state
 
@@ -629,12 +419,10 @@ with detail_col:
         if state.generated_tests:
             st.markdown('<div class="panel-card"><div class="panel-title">Testcase gợi ý</div>', unsafe_allow_html=True)
             latest_suite = state.generated_tests[-1]
-            for test in latest_suite.tests[:3]:
-                st.markdown(
-                    f'<div class="mini-item"><b>{escape(test.name)}</b> · {test.category.value} · {test.purpose.value}</div>',
-                    unsafe_allow_html=True,
-                )
-                st.markdown(f'<div class="mini-caption">{escape(test.rationale)}</div>', unsafe_allow_html=True)
+            for test in latest_suite.tests:
+                st.markdown(f"**{test.name}** · `{test.category.value}`")
+                st.caption(test.rationale)
+                st.code(test.input)
             st.markdown("</div>", unsafe_allow_html=True)
 
         if state.latest_validation:
@@ -648,13 +436,20 @@ with detail_col:
                 """,
                 unsafe_allow_html=True,
             )
+            if state.latest_validation.failed_tests:
+                st.write("**Failed tests:**", [test.name for test in state.latest_validation.failed_tests])
 
-        if state.agent_trace:
-            st.markdown('<div class="panel-card"><div class="panel-title">Agent Trace</div>', unsafe_allow_html=True)
-            for item in state.agent_trace[-5:]:
-                st.markdown(
-                    f'<div class="mini-item"><b>{escape(item.node_name)}</b> · {escape(item.status)}</div>',
-                    unsafe_allow_html=True,
-                )
-                st.markdown(f'<div class="mini-caption">{escape(item.summary)}</div>', unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+        if state.pedagogy_flags:
+            latest_review = state.pedagogy_flags[-1]
+            st.markdown(
+                f"""
+                <div class="panel-card">
+                    <div class="panel-title">Pedagogy review</div>
+                    <div class="stat-row"><span class="stat-label">Risk</span><span class="stat-value">{latest_review.risk_level}</span></div>
+                    <div class="stat-row"><span class="stat-label">Safe to send</span><span class="stat-value">{latest_review.safe_to_send}</span></div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            if latest_review.issues:
+                st.write("**Issues:**", latest_review.issues)

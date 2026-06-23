@@ -1,0 +1,163 @@
+{"kind":"deck","id":"pr/g6mt7k","name":"Deck"}
+{"kind":"layout","layoutId":"59292907-20b4-4716-9ae7-a0c04fc85f1a","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"65ec4723-c1b4-4433-9fcc-ba4d85be7495","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/kvw2fd","slide":1,"title":"AI Agent hỗ trợ học","textShapes":7}
+{"kind":"textbox","id":"sh/onyd0z61","slide":1,"text":"AI Agent hỗ trợ học\nCấu trúc dữ liệu và Giải thuật","textPreview":"AI Agent hỗ trợ học | Cấu trúc dữ liệu và Giải thuật","textChars":50,"textLines":2,"bbox":[78,120,720,150]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":1,"text":"LLM-powered multi-agent tutor theo phương pháp Socratic","textPreview":"LLM-powered multi-agent tutor theo phương pháp Socratic","textChars":55,"textLines":1,"bbox":[82,292,640,42]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":1,"text":"Python","textPreview":"Python","textChars":6,"textLines":1,"bbox":[82,382,110,38]}
+{"kind":"textbox","id":"sh/dg7adsji","slide":1,"text":"LangGraph","textPreview":"LangGraph","textChars":9,"textLines":1,"bbox":[210,382,150,38]}
+{"kind":"textbox","id":"sh/ovahoza1","slide":1,"text":"Gemini API","textPreview":"Gemini API","textChars":10,"textLines":1,"bbox":[378,382,150,38]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":1,"text":"Streamlit","textPreview":"Streamlit","textChars":9,"textLines":1,"bbox":[546,382,140,38]}
+{"kind":"textbox","id":"sh/dsji5sne","slide":1,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/3itgfmlk","slide":1,"name":"","geometry":"roundRect","alt":"Architecture overview","bbox":[760,92,430,470]}
+{"kind":"notes","id":"nt/kvw2fd","slide":1,"text":""}
+{"kind":"slide","id":"sl/06nv9q","slide":2,"title":"DSA SOCRATIC AGENT","textShapes":9}
+{"kind":"textbox","id":"sh/2p8nqxs7","slide":2,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":2,"text":"Vấn đề và hướng tiếp cận","textPreview":"Vấn đề và hướng tiếp cận","textChars":24,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/gvy90je9","slide":2,"bbox":[80,170,340,300]}
+{"kind":"textbox","id":"sh/r2p8nqxs","slide":2,"text":"Khó khăn khi học DSA","textPreview":"Khó khăn khi học DSA","textChars":20,"textLines":1,"bbox":[104,188,292,32]}
+{"kind":"textbox","id":"sh/2hwfyxob","slide":2,"text":"Người học không chỉ cần đáp án, mà cần biết phân tích đề, chọn cấu trúc dữ liệu, trace edge case và đánh giá độ phức tạp.","textPreview":"Người học không chỉ cần đáp án, mà cần biết phân tích đề, chọn cấu trúc dữ liệu, trace edge case và đánh giá độ phức tạp.","textChars":121,"textLines":1,"bbox":[104,232,292,224]}
+{"kind":"shape","id":"sh/94fu18jq","slide":2,"bbox":[470,170,340,300]}
+{"kind":"textbox","id":"sh/kjm1cfa9","slide":2,"text":"Hạn chế của chatbot thường","textPreview":"Hạn chế của chatbot thường","textChars":26,"textLines":1,"bbox":[494,188,292,32]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":2,"text":"Dễ trả lời trực tiếp, thiếu trạng thái học tập và khó kiểm soát mức độ gợi ý.","textPreview":"Dễ trả lời trực tiếp, thiếu trạng thái học tập và khó kiểm soát mức độ gợi ý.","textChars":77,"textLines":1,"bbox":[494,232,292,224]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":2,"bbox":[860,170,340,300]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":2,"text":"Hướng giải quyết","textPreview":"Hướng giải quyết","textChars":16,"textLines":1,"bbox":[884,188,292,32]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":2,"text":"Thiết kế tutor agent theo Socratic, có workflow, state và quality layer để dẫn dắt thay vì làm hộ.","textPreview":"Thiết kế tutor agent theo Socratic, có workflow, state và quality layer để dẫn dắt thay vì làm hộ.","textChars":98,"textLines":1,"bbox":[884,232,292,224]}
+{"kind":"textbox","id":"sh/m94fu18j","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/06nv9q","slide":2,"text":""}
+{"kind":"slide","id":"sl/b81hf2","slide":3,"title":"DSA SOCRATIC AGENT","textShapes":6}
+{"kind":"textbox","id":"sh/neloj2t8","slide":3,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/czed8v6p","slide":3,"text":"Cơ sở lý thuyết","textPreview":"Cơ sở lý thuyết","textChars":15,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"textbox","id":"sh/5kb6xkf6","slide":3,"text":"• Socratic tutoring: đặt câu hỏi gợi mở thay vì đưa lời giải hoàn chỉnh.\n• LLM Agent: dùng LLM trong workflow có state và policy kiểm soát.\n• Multi-agent: chia nhiệm vụ thành các agent chuyên trách.\n• Testcase trong học thuật toán: hỗ trợ trace, phát hiện edge case và kiểm giả định.","textPreview":"• Socratic tutoring: đặt câu hỏi gợi mở thay vì đưa lời giải hoàn chỉnh. | • LLM Agent: dùng LLM trong workflow có state và policy kiểm s...","textChars":283,"textLines":4,"bbox":[92,170,650,350]}
+{"kind":"shape","id":"sh/u54zidon","slide":3,"bbox":[805,175,345,250]}
+{"kind":"textbox","id":"sh/nqxs72x4","slide":3,"text":"Nguyên tắc phản hồi","textPreview":"Nguyên tắc phản hồi","textChars":19,"textLines":1,"bbox":[829,193,297,32]}
+{"kind":"textbox","id":"sh/cbulwval","slide":3,"text":"Mỗi lượt chỉ tập trung 1-2 gợi ý chính; tăng dần hint_level; không đưa full code trong chế độ mặc định.","textPreview":"Mỗi lượt chỉ tập trung 1-2 gợi ý chính; tăng dần hint_level; không đưa full code trong chế độ mặc định.","textChars":103,"textLines":1,"bbox":[829,237,297,174]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/b81hf2","slide":3,"text":""}
+{"kind":"slide","id":"sl/bb2ziy","slide":4,"title":"DSA SOCRATIC AGENT","textShapes":11}
+{"kind":"textbox","id":"sh/wfyxobm5","slide":4,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/7u54zido","slide":4,"text":"Mục tiêu hệ thống","textPreview":"Mục tiêu hệ thống","textChars":17,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/ed8bat47","slide":4,"bbox":[85,165,340,170]}
+{"kind":"textbox","id":"sh/lc7u54zi","slide":4,"text":"Điều phối bằng LangGraph","textPreview":"Điều phối bằng LangGraph","textChars":24,"textLines":1,"bbox":[109,183,292,32]}
+{"kind":"textbox","id":"sh/wra5gbq1","slide":4,"text":"Tách workflow theo intent để dễ mở rộng và quan sát.","textPreview":"Tách workflow theo intent để dễ mở rộng và quan sát.","textChars":52,"textLines":1,"bbox":[109,227,292,94]}
+{"kind":"shape","id":"sh/36hcrmhk","slide":4,"bbox":[470,165,340,170]}
+{"kind":"textbox","id":"sh/eloj2t83","slide":4,"text":"LLM cho tác vụ ngữ cảnh","textPreview":"LLM cho tác vụ ngữ cảnh","textChars":23,"textLines":1,"bbox":[494,183,292,32]}
+{"kind":"textbox","id":"sh/pg3ex0nu","slide":4,"text":"Detect intent, classify problem, generate hint, testcase và review phản hồi.","textPreview":"Detect intent, classify problem, generate hint, testcase và review phản hồi.","textChars":76,"textLines":1,"bbox":[494,227,292,94]}
+{"kind":"shape","id":"sh/wval87ed","slide":4,"bbox":[855,165,340,170]}
+{"kind":"textbox","id":"sh/6hcrmhk3","slide":4,"text":"Quality Layer","textPreview":"Quality Layer","textChars":13,"textLines":1,"bbox":[879,183,292,32]}
+{"kind":"textbox","id":"sh/z25kb6xk","slide":4,"text":"Testcase generator, execution validator và pedagogy critic.","textPreview":"Testcase generator, execution validator và pedagogy critic.","textChars":59,"textLines":1,"bbox":[879,227,292,94]}
+{"kind":"shape","id":"sh/onyd0z61","slide":4,"bbox":[275,390,730,145]}
+{"kind":"textbox","id":"sh/d8v6psfi","slide":4,"text":"Giao diện tương tác","textPreview":"Giao diện tương tác","textChars":19,"textLines":1,"bbox":[299,408,682,32]}
+{"kind":"textbox","id":"sh/6tovahoz","slide":4,"text":"Streamlit chat UI nhiều phiên, hiển thị trạng thái và Agent Trace.","textPreview":"Streamlit chat UI nhiều phiên, hiển thị trạng thái và Agent Trace.","textChars":66,"textLines":1,"bbox":[299,452,682,69]}
+{"kind":"textbox","id":"sh/vahoza1g","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/bb2ziy","slide":4,"text":""}
+{"kind":"slide","id":"sl/qwddr6","slide":5,"title":"DSA SOCRATIC AGENT","textShapes":15}
+{"kind":"textbox","id":"sh/qh0fepkz","slide":5,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/18jqh0fe","slide":5,"text":"Công nghệ sử dụng","textPreview":"Công nghệ sử dụng","textChars":17,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/8nqxs72x","slide":5,"bbox":[75,160,250,160]}
+{"kind":"textbox","id":"sh/jqh0fepk","slide":5,"text":"Python","textPreview":"Python","textChars":6,"textLines":1,"bbox":[99,178,202,32]}
+{"kind":"textbox","id":"sh/q5o7qpg3","slide":5,"text":"Core agent, schema dữ liệu, validator và kiểm thử.","textPreview":"Core agent, schema dữ liệu, validator và kiểm thử.","textChars":50,"textLines":1,"bbox":[99,222,202,84]}
+{"kind":"shape","id":"sh/1w7mp0bi","slide":5,"bbox":[365,160,250,160]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":5,"text":"LangGraph","textPreview":"LangGraph","textChars":9,"textLines":1,"bbox":[389,178,202,32]}
+{"kind":"textbox","id":"sh/ji5snelo","slide":5,"text":"Workflow orchestration bằng node và conditional edge.","textPreview":"Workflow orchestration bằng node và conditional edge.","textChars":53,"textLines":1,"bbox":[389,222,202,84]}
+{"kind":"shape","id":"sh/uxc3ylc7","slide":5,"bbox":[655,160,250,160]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":5,"text":"Gemini API","textPreview":"Gemini API","textChars":10,"textLines":1,"bbox":[679,178,202,32]}
+{"kind":"textbox","id":"sh/58z25kb6","slide":5,"text":"LLM provider cho intent, hint, testcase và pedagogy review.","textPreview":"LLM provider cho intent, hint, testcase và pedagogy review.","textChars":59,"textLines":1,"bbox":[679,222,202,84]}
+{"kind":"shape","id":"sh/yhgn29gr","slide":5,"bbox":[945,160,250,160]}
+{"kind":"textbox","id":"sh/n29gr2p8","slide":5,"text":"Streamlit","textPreview":"Streamlit","textChars":9,"textLines":1,"bbox":[969,178,202,32]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":5,"text":"Giao diện chat demo, nhiều phiên học và panel trạng thái.","textPreview":"Giao diện chat demo, nhiều phiên học và panel trạng thái.","textChars":57,"textLines":1,"bbox":[969,222,202,84]}
+{"kind":"shape","id":"sh/5wjudg7a","slide":5,"bbox":[220,390,380,150]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":5,"text":"Quality + Sandbox","textPreview":"Quality + Sandbox","textChars":17,"textLines":1,"bbox":[244,408,332,32]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":5,"text":"Chạy code Python có timeout; chuẩn hóa PASSED/FAILED/TIMEOUT/SKIPPED.","textPreview":"Chạy code Python có timeout; chuẩn hóa PASSED/FAILED/TIMEOUT/SKIPPED.","textChars":69,"textLines":1,"bbox":[244,452,332,74]}
+{"kind":"shape","id":"sh/cbulwval","slide":5,"bbox":[680,390,380,150]}
+{"kind":"textbox","id":"sh/5sneloj2","slide":5,"text":"unittest","textPreview":"unittest","textChars":8,"textLines":1,"bbox":[704,408,332,32]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":5,"text":"Kiểm tra schema, validator và các nhánh xử lý chính.","textPreview":"Kiểm tra schema, validator và các nhánh xử lý chính.","textChars":52,"textLines":1,"bbox":[704,452,332,74]}
+{"kind":"textbox","id":"sh/g3ex0nux","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/qwddr6","slide":5,"text":""}
+{"kind":"slide","id":"sl/6zir1h","slide":6,"title":"DSA SOCRATIC AGENT","textShapes":4}
+{"kind":"textbox","id":"sh/8nqxs72x","slide":6,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/j2t83itg","slide":6,"text":"Kiến trúc tổng quan","textPreview":"Kiến trúc tổng quan","textChars":19,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"textbox","id":"sh/1w7mp0bi","slide":6,"text":"• AI Tutor Agent là trung tâm điều phối.\n• Learning Modules xử lý phân loại, gợi ý và phân tích code.\n• Quality Layer kiểm testcase, validation và phản hồi sư phạm.\n• State & Memory giúp cá nhân hóa theo tiến trình học.","textPreview":"• AI Tutor Agent là trung tâm điều phối. | • Learning Modules xử lý phân loại, gợi ý và phân tích code. | • Quality Layer kiểm testcase, ...","textChars":219,"textLines":4,"bbox":[835,160,350,400]}
+{"kind":"textbox","id":"sh/8bat47y1","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/bq1oryts","slide":6,"name":"","geometry":"roundRect","alt":"Architecture overview","bbox":[80,145,710,430]}
+{"kind":"notes","id":"nt/6zir1h","slide":6,"text":""}
+{"kind":"slide","id":"sl/ecdgfv","slide":7,"title":"DSA SOCRATIC AGENT","textShapes":4}
+{"kind":"textbox","id":"sh/9s36hcrm","slide":7,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/y1kre1w7","slide":7,"text":"Workflow LangGraph","textPreview":"Workflow LangGraph","textChars":18,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"textbox","id":"sh/90je9cvi","slide":7,"text":"Tách node giúp workflow rõ ràng, dễ debug và dễ thêm agent mới.","textPreview":"Tách node giúp workflow rõ ràng, dễ debug và dễ thêm agent mới.","textChars":63,"textLines":1,"bbox":[825,405,345,90]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/mp0bi9s3","slide":7,"name":"","geometry":"roundRect","alt":"LangGraph workflow","bbox":[72,140,720,392]}
+{"kind":"image","id":"im/tsvu9kni","slide":7,"name":"","geometry":"roundRect","alt":"LangGraph code snippet","bbox":[825,160,345,210]}
+{"kind":"notes","id":"nt/ecdgfv","slide":7,"text":""}
+{"kind":"slide","id":"sl/t01rwo","slide":8,"title":"DSA SOCRATIC AGENT","textShapes":17}
+{"kind":"textbox","id":"sh/xobm58z2","slide":8,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/qxs72x4n","slide":8,"text":"Các agent chính","textPreview":"Các agent chính","textChars":15,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/fil0rqd4","slide":8,"bbox":[95,160,320,115]}
+{"kind":"textbox","id":"sh/4fu18jqh","slide":8,"text":"Intent Detector","textPreview":"Intent Detector","textChars":15,"textLines":1,"bbox":[119,178,272,32]}
+{"kind":"textbox","id":"sh/x0nuxc3y","slide":8,"text":"Phân loại message","textPreview":"Phân loại message","textChars":17,"textLines":1,"bbox":[119,222,272,39]}
+{"kind":"shape","id":"sh/m94fu18j","slide":8,"bbox":[465,160,320,115]}
+{"kind":"textbox","id":"sh/fu18jqh0","slide":8,"text":"Problem Classifier","textPreview":"Problem Classifier","textChars":18,"textLines":1,"bbox":[489,178,272,32]}
+{"kind":"textbox","id":"sh/4r65wjud","slide":8,"text":"Nhận diện dạng bài","textPreview":"Nhận diện dạng bài","textChars":18,"textLines":1,"bbox":[489,222,272,39]}
+{"kind":"shape","id":"sh/xc3ylc7u","slide":8,"bbox":[835,160,320,115]}
+{"kind":"textbox","id":"sh/9cvixcze","slide":8,"text":"Hint Generator","textPreview":"Hint Generator","textChars":14,"textLines":1,"bbox":[859,178,272,32]}
+{"kind":"textbox","id":"sh/gr2p8nqx","slide":8,"text":"Sinh gợi ý Socratic","textPreview":"Sinh gợi ý Socratic","textChars":19,"textLines":1,"bbox":[859,222,272,39]}
+{"kind":"shape","id":"sh/r65wjudg","slide":8,"bbox":[95,310,320,115]}
+{"kind":"textbox","id":"sh/ylc7u54z","slide":8,"text":"Testcase Generator","textPreview":"Testcase Generator","textChars":18,"textLines":1,"bbox":[119,328,272,32]}
+{"kind":"textbox","id":"sh/5o7qpg3e","slide":8,"text":"Tạo case trace/validate","textPreview":"Tạo case trace/validate","textChars":23,"textLines":1,"bbox":[119,372,272,39]}
+{"kind":"shape","id":"sh/g3ex0nux","slide":8,"bbox":[465,310,320,115]}
+{"kind":"textbox","id":"sh/nih4byhg","slide":8,"text":"Execution Validator","textPreview":"Execution Validator","textChars":19,"textLines":1,"bbox":[489,328,272,32]}
+{"kind":"textbox","id":"sh/yxobm58z","slide":8,"text":"Chạy code Python","textPreview":"Chạy code Python","textChars":16,"textLines":1,"bbox":[489,372,272,39]}
+{"kind":"shape","id":"sh/9s36hcrm","slide":8,"bbox":[835,310,320,115]}
+{"kind":"textbox","id":"sh/g7adsji5","slide":8,"text":"Pedagogy Critic","textPreview":"Pedagogy Critic","textChars":15,"textLines":1,"bbox":[859,328,272,32]}
+{"kind":"textbox","id":"sh/gbq1oryt","slide":8,"text":"Review phản hồi","textPreview":"Review phản hồi","textChars":15,"textLines":1,"bbox":[859,372,272,39]}
+{"kind":"shape","id":"sh/5wjudg7a","slide":8,"bbox":[95,460,320,115]}
+{"kind":"textbox","id":"sh/y90je9cv","slide":8,"text":"Session Title","textPreview":"Session Title","textChars":13,"textLines":1,"bbox":[119,478,272,32]}
+{"kind":"textbox","id":"sh/nuxc3ylc","slide":8,"text":"Đặt tên phiên chat","textPreview":"Đặt tên phiên chat","textChars":18,"textLines":1,"bbox":[119,522,272,39]}
+{"kind":"textbox","id":"sh/gn29gr2p","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/t01rwo","slide":8,"text":""}
+{"kind":"slide","id":"sl/uj9ht0","slide":9,"title":"DSA SOCRATIC AGENT","textShapes":7}
+{"kind":"textbox","id":"sh/0rqd4vmt","slide":9,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/b6xkf6dc","slide":9,"text":"State & Memory","textPreview":"State & Memory","textChars":14,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/t47y1kre","slide":9,"bbox":[700,170,420,190]}
+{"kind":"textbox","id":"sh/0je9cvix","slide":9,"text":"LearningState lưu gì?","textPreview":"LearningState lưu gì?","textChars":21,"textLines":1,"bbox":[724,188,372,32]}
+{"kind":"textbox","id":"sh/byhgn29g","slide":9,"text":"current_problem, problem_type, concepts, hint_level, student_attempts, generated_tests, latest_validation, pedagogy_flags và next_action.","textPreview":"current_problem, problem_type, concepts, hint_level, student_attempts, generated_tests, latest_validation, pedagogy_flags và next_action.","textChars":137,"textLines":1,"bbox":[724,232,372,114]}
+{"kind":"shape","id":"sh/idonyd0z","slide":9,"bbox":[700,390,420,160]}
+{"kind":"textbox","id":"sh/p0bi9s36","slide":9,"text":"Vì sao quan trọng?","textPreview":"Vì sao quan trọng?","textChars":18,"textLines":1,"bbox":[724,408,372,32]}
+{"kind":"textbox","id":"sh/0fepkzup","slide":9,"text":"Cùng một câu xin gợi ý có thể sinh phản hồi khác nhau tùy bài, số lần hint và kết quả validation gần nhất.","textPreview":"Cùng một câu xin gợi ý có thể sinh phản hồi khác nhau tùy bài, số lần hint và kết quả validation gần nhất.","textChars":106,"textLines":1,"bbox":[724,452,372,84]}
+{"kind":"textbox","id":"sh/itgfmlkj","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/n29gr2p8","slide":9,"name":"","geometry":"roundRect","alt":"LearningState code snippet","bbox":[80,150,540,310]}
+{"kind":"notes","id":"nt/uj9ht0","slide":9,"text":""}
+{"kind":"slide","id":"sl/stzr5p","slide":10,"title":"DSA SOCRATIC AGENT","textShapes":9}
+{"kind":"textbox","id":"sh/kb6xkf6d","slide":10,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/rqd4vmtw","slide":10,"text":"Quality Layer","textPreview":"Quality Layer","textChars":13,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/25kb6xkf","slide":10,"bbox":[85,160,345,210]}
+{"kind":"textbox","id":"sh/9knih4by","slide":10,"text":"Testcase Generator","textPreview":"Testcase Generator","textChars":18,"textLines":1,"bbox":[109,178,297,32]}
+{"kind":"textbox","id":"sh/kzupwb2h","slide":10,"text":"Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.","textPreview":"Sinh basic, edge, adversarial/stress cases. Phân biệt validation và trace-only testcase.","textChars":88,"textLines":1,"bbox":[109,222,297,134]}
+{"kind":"shape","id":"sh/re1w7mp0","slide":10,"bbox":[468,160,345,210]}
+{"kind":"textbox","id":"sh/2t83itgf","slide":10,"text":"Execution Validator","textPreview":"Execution Validator","textChars":19,"textLines":1,"bbox":[492,178,297,32]}
+{"kind":"textbox","id":"sh/9gr2p8nq","slide":10,"text":"Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.","textPreview":"Chạy Python code trên testcase có expected output, giới hạn timeout và chuẩn hóa kết quả.","textChars":89,"textLines":1,"bbox":[492,222,297,134]}
+{"kind":"shape","id":"sh/gvy90je9","slide":10,"bbox":[850,160,345,210]}
+{"kind":"textbox","id":"sh/yd0z6103","slide":10,"text":"Pedagogy Critic","textPreview":"Pedagogy Critic","textChars":15,"textLines":1,"bbox":[874,178,297,32]}
+{"kind":"textbox","id":"sh/rytsvu9k","slide":10,"text":"Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.","textPreview":"Kiểm phản hồi nháp: không lộ full solution, đúng hint_level, đủ tính Socratic.","textChars":78,"textLines":1,"bbox":[874,222,297,134]}
+{"kind":"textbox","id":"sh/90je9cvi","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/3q5o7qpg","slide":10,"name":"","geometry":"roundRect","alt":"Pedagogy review code snippet","bbox":[260,430,760,170]}
+{"kind":"notes","id":"nt/stzr5p","slide":10,"text":""}
+{"kind":"slide","id":"sl/mershq","slide":11,"title":"DSA SOCRATIC AGENT","textShapes":4}
+{"kind":"textbox","id":"sh/cvixczed","slide":11,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/nap4r65w","slide":11,"text":"Kết quả đạt được","textPreview":"Kết quả đạt được","textChars":16,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"textbox","id":"sh/upwb2hwf","slide":11,"text":"• Có kiến trúc multi-agent rõ ràng cho DSA tutor.\n• Có LangGraph workflow tách node theo intent.\n• Có cơ chế hint nhiều cấp độ theo phương pháp Socratic.\n• Có Quality Layer: testcase, validation, pedagogy review.\n• Có Streamlit UI nhiều phiên và hiển thị trạng thái học tập.","textPreview":"• Có kiến trúc multi-agent rõ ràng cho DSA tutor. | • Có LangGraph workflow tách node theo intent. | • Có cơ chế hint nhiều cấp độ theo p...","textChars":274,"textLines":5,"bbox":[90,170,610,360]}
+{"kind":"textbox","id":"sh/cj6tovah","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"image","id":"im/kf6dcbul","slide":11,"name":"","geometry":"roundRect","alt":"Streamlit demo UI","bbox":[735,165,420,300]}
+{"kind":"notes","id":"nt/mershq","slide":11,"text":""}
+{"kind":"slide","id":"sl/7ymr5z","slide":12,"title":"DSA SOCRATIC AGENT","textShapes":8}
+{"kind":"textbox","id":"sh/m58z25kb","slide":12,"text":"DSA SOCRATIC AGENT","textPreview":"DSA SOCRATIC AGENT","textChars":18,"textLines":1,"bbox":[70,36,420,28]}
+{"kind":"textbox","id":"sh/twra5gbq","slide":12,"text":"Hạn chế và hướng phát triển","textPreview":"Hạn chế và hướng phát triển","textChars":27,"textLines":1,"bbox":[70,72,850,58]}
+{"kind":"shape","id":"sh/4byhgn29","slide":12,"bbox":[90,170,500,260]}
+{"kind":"textbox","id":"sh/b2hwfyxo","slide":12,"text":"Chưa làm được","textPreview":"Chưa làm được","textChars":13,"textLines":1,"bbox":[114,188,452,32]}
+{"kind":"textbox","id":"sh/mhk3q5o7","slide":12,"text":"Chưa có database bền vững; sandbox mới tập trung Python; testcase expected output còn phụ thuộc độ rõ của đề; chưa có benchmark lớn.","textPreview":"Chưa có database bền vững; sandbox mới tập trung Python; testcase expected output còn phụ thuộc độ rõ của đề; chưa có benchmark lớn.","textChars":132,"textLines":1,"bbox":[114,232,452,184]}
+{"kind":"shape","id":"sh/t83itgfm","slide":12,"bbox":[690,170,500,260]}
+{"kind":"textbox","id":"sh/4nap4r65","slide":12,"text":"Phát triển tiếp","textPreview":"Phát triển tiếp","textChars":15,"textLines":1,"bbox":[714,188,452,32]}
+{"kind":"textbox","id":"sh/bat47y1k","slide":12,"text":"Lưu session bằng database; nâng cấp sandbox; thêm Evaluation Agent; xây benchmark DSA; mở rộng UI theo dõi tiến độ học.","textPreview":"Lưu session bằng database; nâng cấp sandbox; thêm Evaluation Agent; xây benchmark DSA; mở rộng UI theo dõi tiến độ học.","textChars":119,"textLines":1,"bbox":[714,232,452,184]}
+{"kind":"textbox","id":"sh/mp0bi9s3","slide":12,"text":"Kết luận: hệ thống đặt nền tảng cho một AI tutor có trạng thái, có workflow và có lớp kiểm soát chất lượng, phù hợp để mở rộng thành trợ giảng cá nhân hóa.","textPreview":"Kết luận: hệ thống đặt nền tảng cho một AI tutor có trạng thái, có workflow và có lớp kiểm soát chất lượng, phù hợp để mở rộng thành trợ ...","textChars":155,"textLines":1,"bbox":[145,500,990,80]}
+{"kind":"textbox","id":"sh/4byhgn29","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1160,660,50,24]}
+{"kind":"notes","id":"nt/7ymr5z","slide":12,"text":""}

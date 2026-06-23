@@ -1,59 +1,104 @@
-﻿# Thiết kế Agent
+# Thiết kế Agent
 
-## Vai trò của Agent
+## Vai trò tổng thể
 
-Agent đóng vai trò như một trợ giảng cá nhân. Mục tiêu không phải là trả lời nhanh nhất, mà là giúp sinh viên tự phát hiện hướng giải.
+Hệ thống gồm một agent điều phối chính và các agent chuyên trách. `AI Tutor Agent` giữ vai trò trợ giảng cá nhân: hiểu trạng thái học, chọn công cụ phù hợp, tạo phản hồi nháp và chỉ gửi phản hồi sau khi qua quality review.
 
-## Các bước ra quyết định
+## AI Tutor Agent
 
-1. **Nhận diện loại đầu vào**
-   - Câu hỏi lý thuyết.
-   - Đề bài lập trình.
-   - Ý tưởng lời giải.
-   - Code.
-   - Yêu cầu gợi ý.
-   - Yêu cầu đáp án trực tiếp.
+Nhiệm vụ:
 
-2. **Cập nhật trạng thái học tập**
-   - Sinh viên đang ở bước nào?
-   - Đã có ý tưởng chưa?
-   - Đang sai ở giả định, cấu trúc dữ liệu, thuật toán hay cài đặt?
-   - Đã nhận bao nhiêu mức gợi ý?
+- Dùng LLM nhận diện intent: hỏi lý thuyết, gửi đề, xin gợi ý, gửi ý tưởng, gửi code, đòi lời giải trực tiếp.
+- Cập nhật `LearningState`.
+- Chọn module hoặc quality agent cần gọi.
+- Dùng LLM để sinh phản hồi Socratic cuối cùng.
+- Không trả lời trực tiếp từ LLM thô; phản hồi phải đi qua policy và `Pedagogy Critic Agent`.
 
-3. **Chọn chiến lược phản hồi**
-   - Đặt câu hỏi gợi mở.
-   - Đưa gợi ý mức thấp/trung/cao.
-   - Yêu cầu sinh viên giải thích thêm.
-   - Phân tích code.
-   - Tóm tắt tiến trình.
+Pipeline bắt buộc:
 
-4. **Sinh phản hồi Socratic**
-   - Ngắn gọn.
-   - Có định hướng.
-   - Ưu tiên câu hỏi.
-   - Không đưa đáp án hoàn chỉnh.
+```text
+LLM detect intent
+-> update state
+-> call learning modules
+-> call quality agents if needed
+-> draft response
+-> pedagogy review
+-> rewrite if needed
+-> final response
+```
 
-## Intent đề xuất
+Trong code hiện tại, pipeline này được bọc bằng `DsaTutorGraph`. LangGraph đã được tách thành nhiều node thay vì gộp toàn bộ agent vào một node lớn: `detect_intent`, `submit_problem`, `request_hint`, `submit_code`, `direct_solution_guard`, `submit_approach`, `ask_theory` và `finalize`. `DsaLearningAgent` vẫn là lõi nghiệp vụ, nhưng từng hành vi chính đã được tách thành method riêng để graph gọi trực tiếp.
 
-| Intent | Dấu hiệu | Hành động |
-| --- | --- | --- |
-| `ASK_THEORY` | Hỏi khái niệm, độ phức tạp, cấu trúc dữ liệu | Giải thích ngắn + câu hỏi kiểm tra hiểu |
-| `SUBMIT_PROBLEM` | Gửi đề bài | Phân loại + hỏi sinh viên về input/output, ràng buộc |
-| `REQUEST_HINT` | "gợi ý", "em bị tắc" | Tăng hint level |
-| `SUBMIT_APPROACH` | Mô tả ý tưởng | Kiểm tra logic bằng câu hỏi |
-| `SUBMIT_CODE` | Có block code | Phân tích code |
-| `ASK_DIRECT_SOLUTION` | "cho em lời giải", "code mẫu" | Từ chối mềm + đưa gợi ý cao hơn |
+## Learning Modules
 
-## Ví dụ phản hồi
+### LLM Problem Classifier
 
-### Khi sinh viên mới gửi đề bài
+Phân loại bài toán theo chủ đề và pattern tư duy: array/string, sliding window, hash map, stack, BFS, DFS, graph, greedy, dynamic programming, sorting/searching.
 
-"Theo em, đầu vào và đầu ra của bài này đang yêu cầu biến đổi thông tin nào? Nếu phải chọn một cấu trúc dữ liệu để lưu trạng thái trung gian, em sẽ chọn gì và vì sao?"
+Output gồm `topic`, `pattern`, `confidence`, `key_signals`, `recommended_hint_path`.
 
-### Khi sinh viên yêu cầu gợi ý lần đầu
+### LLM Hint Generator
 
-"Thử nhìn vào ràng buộc của bài: kích thước input có cho phép duyệt tất cả cặp phần tử không? Nếu không, em cần loại bỏ bớt trường hợp bằng cách nào?"
+Sinh gợi ý theo cấp. LLM sinh gợi ý dựa trên `LearningState`, bài hiện tại, attempts gần nhất và policy Socratic. Các guideline trong `hints.py` chỉ dùng làm ngữ cảnh prompt, không phải câu trả lời cố định.
 
-### Khi sinh viên gửi code
+- Level 1: làm rõ input/output, constraint, ví dụ nhỏ.
+- Level 2: gợi ý chiến lược hoặc cấu trúc dữ liệu.
+- Level 3: gợi ý gần lời giải nhưng vẫn yêu cầu sinh viên tự hoàn thiện.
+- Level 4: phản biện bằng edge cases, độ phức tạp và tính đúng.
 
-"Ý tưởng của em đang duyệt từng phần tử và cập nhật kết quả tạm thời. Em thử tự hỏi: mỗi phần tử được xử lý bao nhiêu lần? Có trường hợp nào một phần tử bị lặp lại quá nhiều không?"
+### Code Analyzer
+
+Phân tích code ở mức tư duy:
+
+- Code đang thể hiện chiến lược nào?
+- Mỗi phần tử/trạng thái được xử lý bao nhiêu lần?
+- Có edge case nào dễ sai?
+- Có thể tối ưu bằng cấu trúc dữ liệu hoặc trạng thái khác không?
+
+## Quality Agents
+
+### Testcase Generator Agent
+
+Dùng LLM sinh testcase để người học tự kiểm:
+
+- Basic case để trace tay.
+- Edge case như input rỗng, một phần tử, toàn số âm, trùng lặp.
+- Adversarial/stress case khi ràng buộc cho thấy nguy cơ TLE hoặc sai logic.
+- `expected_output` có thể là `null` nếu đề bài chưa đủ rõ; khi đó testcase dùng để trace tay thay vì chấm tự động.
+
+### Code Execution Validator Agent
+
+Chạy code khi sandbox sẵn sàng:
+
+- V1 chỉ hỗ trợ Python.
+- Timeout mặc định 2 giây/test.
+- Nếu testcase chưa có `expected_output`, validator bỏ qua testcase đó.
+- Không dump đáp án; kết quả được Tutor Agent chuyển thành câu hỏi/gợi ý.
+
+### Pedagogy Critic Agent
+
+Dùng LLM kiểm phản hồi trước khi gửi:
+
+- Có lộ full code/lời giải không?
+- Có quá nhiều câu hỏi trong một lượt không?
+- Có đúng hint level không?
+- Có đủ tính Socratic không?
+
+Nếu phản hồi không đạt, critic trả `revision_instruction` để Tutor Agent gọi LLM viết lại trước khi gửi.
+
+## Intent và hành động
+
+| Intent | Hành động |
+| --- | --- |
+| `ASK_THEORY` | Giải thích ngắn + hỏi kiểm tra hiểu |
+| `SUBMIT_PROBLEM` | LLM phân loại bài + sinh testcase trace nhỏ + hỏi input/output |
+| `REQUEST_HINT` | Tăng hint level + LLM sinh hint + pedagogy review |
+| `SUBMIT_APPROACH` | Kiểm giả định bằng phản ví dụ và độ phức tạp |
+| `SUBMIT_CODE` | Phân tích code + sinh testcase + validate bằng sandbox khi có thể |
+| `ASK_DIRECT_SOLUTION` | Guard chặn lời giải trực tiếp + chuyển thành gợi ý |
+
+## Nguyên tắc sản phẩm
+
+- Chế độ mặc định là Socratic, không phải giải bài thuê.
+- LLM được dùng cho các bước có thể cần hiểu ngữ cảnh: intent detection, classification, testcase generation, pedagogy review và final response.
+- Các module heuristic còn lại đóng vai trò utility/guideline nội bộ để prompt có thêm ngữ cảnh và để test được những phần nhỏ.

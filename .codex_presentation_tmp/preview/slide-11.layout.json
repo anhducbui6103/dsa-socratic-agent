@@ -1,0 +1,420 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/mershq",
+    "id": "mershq",
+    "slide": 11,
+    "layoutId": "65ec4723-c1b4-4433-9fcc-ba4d85be7495",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F8FAFC",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "65ec4723-c1b4-4433-9fcc-ba4d85be7495",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "59292907-20b4-4716-9ae7-a0c04fc85f1a",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cvixczed",
+      "id": "1",
+      "bbox": [
+        70,
+        36,
+        420,
+        28
+      ],
+      "geometry": "rect",
+      "text": "DSA SOCRATIC AGENT",
+      "textPreview": "DSA SOCRATIC AGENT",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#1F4E79",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "DSA SOCRATIC AGENT"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "DSA SOCRATIC AGENT",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#1F4E79",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "DSA SOCRATIC AGENT",
+              "fontSize": 14,
+              "color": "#1F4E79",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/nap4r65w",
+      "id": "2",
+      "bbox": [
+        70,
+        72,
+        850,
+        58
+      ],
+      "geometry": "rect",
+      "text": "Kết quả đạt được",
+      "textPreview": "Kết quả đạt được",
+      "resolvedFontSize": 38,
+      "resolvedTextStyle": {
+        "fontSize": 38,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Kết quả đạt được"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Kết quả đạt được",
+          "resolvedTextStyle": {
+            "fontSize": 38,
+            "color": "#020618",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Kết quả đạt được",
+              "fontSize": 38,
+              "color": "#020618",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/upwb2hwf",
+      "id": "3",
+      "bbox": [
+        90,
+        170,
+        610,
+        360
+      ],
+      "geometry": "rect",
+      "text": "• Có kiến trúc multi-agent rõ ràng cho DSA tutor.\n• Có LangGraph workflow tách node theo intent.\n• Có cơ chế hint nhiều cấp độ theo phương pháp Socratic.\n• Có Quality Layer: testcase, validation, pedagogy review.\n• Có Streamlit UI nhiều phiên và hiển thị trạng thái học tập.",
+      "textPreview": "• Có kiến trúc multi-agent rõ ràng cho DSA tutor. | • Có LangGraph workflow tách node theo intent. | • Có cơ chế hint nhiều cấp độ theo p...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "+mn-lt",
+        "color": "#020618",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 5,
+        "lines": [
+          {
+            "index": 1,
+            "text": "• Có kiến trúc multi-agent rõ ràng cho DSA tutor."
+          },
+          {
+            "index": 2,
+            "text": "• Có LangGraph workflow tách node theo intent."
+          },
+          {
+            "index": 3,
+            "text": "• Có cơ chế hint nhiều cấp độ theo phương pháp Socratic."
+          },
+          {
+            "index": 4,
+            "text": "• Có Quality Layer: testcase, validation, pedagogy review."
+          },
+          {
+            "index": 5,
+            "text": "• Có Streamlit UI nhiều phiên và hiển thị trạng thái học tập."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "• Có kiến trúc multi-agent rõ ràng cho DSA tutor.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#020618"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Có kiến trúc multi-agent rõ ràng cho DSA tutor.",
+              "fontSize": 24,
+              "color": "#020618"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "• Có LangGraph workflow tách node theo intent.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#020618"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Có LangGraph workflow tách node theo intent.",
+              "fontSize": 24,
+              "color": "#020618"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "• Có cơ chế hint nhiều cấp độ theo phương pháp Socratic.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#020618"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Có cơ chế hint nhiều cấp độ theo phương pháp Socratic.",
+              "fontSize": 24,
+              "color": "#020618"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 4,
+          "text": "• Có Quality Layer: testcase, validation, pedagogy review.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#020618"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Có Quality Layer: testcase, validation, pedagogy review.",
+              "fontSize": 24,
+              "color": "#020618"
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 5,
+          "text": "• Có Streamlit UI nhiều phiên và hiển thị trạng thái học tập.",
+          "resolvedTextStyle": {
+            "fontSize": 24,
+            "color": "#020618"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "• Có Streamlit UI nhiều phiên và hiển thị trạng thái học tập.",
+              "fontSize": 24,
+              "color": "#020618"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "image",
+      "scope": "slide",
+      "aid": "im/kf6dcbul",
+      "id": "4",
+      "bbox": [
+        735,
+        165,
+        420,
+        300
+      ],
+      "geometry": "roundRect",
+      "alt": "Streamlit demo UI",
+      "contentType": "image/png",
+      "imageFit": "contain",
+      "imageMask": {
+        "geometry": "roundRect",
+        "adjustmentList": [
+          {
+            "name": "adj",
+            "formula": "val 4000"
+          }
+        ]
+      },
+      "asset": {
+        "assetId": "ab920ee8-6a57-4912-b52a-0b6fb8b425e5",
+        "contentType": "image/png",
+        "byteLength": 64034
+      }
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cj6tovah",
+      "id": "5",
+      "bbox": [
+        1160,
+        660,
+        50,
+        24
+      ],
+      "geometry": "rect",
+      "text": "11",
+      "textPreview": "11",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#90A1B9",
+        "alignment": "right",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "11"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "11",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#90A1B9",
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "11",
+              "fontSize": 14,
+              "color": "#90A1B9",
+              "alignment": "right"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

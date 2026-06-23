@@ -6,6 +6,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import streamlit as st
+import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -63,6 +64,10 @@ st.markdown(
     }
 
     div[data-testid="column"]:has(.sidebar-anchor) {
+        flex: 0 0 var(--sidebar-width) !important;
+        width: var(--sidebar-width) !important;
+        min-width: var(--sidebar-width) !important;
+        max-width: var(--sidebar-width) !important;
         background: var(--sidebar-bg);
         min-height: calc(100vh - 0.7rem);
         padding: 0.9rem 0.65rem 1rem 0.65rem;
@@ -70,24 +75,46 @@ st.markdown(
     }
 
     div[data-testid="column"]:has(.separator-anchor) {
+        flex: 0 0 0.75rem !important;
+        width: 0.75rem !important;
+        min-width: 0.75rem !important;
+        max-width: 0.75rem !important;
         padding: 0 !important;
     }
 
     div[data-testid="column"]:has(.chat-anchor) {
-        padding: 0.8rem 1.5rem 6.6rem 1.5rem;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding: 0.8rem 2rem 6.6rem 2rem;
+        overflow: hidden;
     }
 
     div[data-testid="column"]:has(.detail-anchor) {
-        padding: 0.8rem 1rem 2rem 1rem;
+        flex: 0 0 27rem !important;
+        width: 27rem !important;
+        min-width: 27rem !important;
+        max-width: 27rem !important;
+        padding: 0.8rem 1rem 2rem 1.15rem;
+        border-left: 1px solid rgba(120, 120, 120, 0.22);
+        background: #fafafa;
+        min-height: calc(100vh - 0.7rem);
+        box-shadow: none;
+        overflow-y: auto;
+    }
+
+    div[data-testid="column"]:has(.chat-anchor) div[data-testid="stChatMessage"] {
+        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     div[data-testid="stChatInput"] {
         position: fixed;
-        left: 23rem;
-        right: 27rem;
+        left: calc(var(--sidebar-width) + 4rem);
+        right: 29rem;
         bottom: 1rem;
         z-index: 100;
-        background: var(--background-color);
+        background: transparent;
     }
 
     div[data-testid="stChatInput"] > div {
@@ -168,7 +195,7 @@ st.markdown(
         padding: 1rem 1.1rem;
         margin-bottom: 1rem;
         box-shadow: var(--shadow-soft);
-        background: rgba(255, 255, 255, 0.72);
+        background: #ffffff;
     }
 
     .panel-title {
@@ -214,9 +241,114 @@ st.markdown(
             display: none;
         }
     }
+
+    /* Fallback nếu JS chưa kịp chạy */
+    div[data-testid="stChatInput"] {
+        left: 21.4rem !important;
+        right: 30.3rem !important;
+        max-width: calc(100vw - 52rem) !important;
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
+)
+
+components.html(
+    """
+    <script>
+    const doc = window.parent.document;
+
+    function topLevelColumns() {
+        const blocks = [...doc.querySelectorAll('div[data-testid="stHorizontalBlock"]')];
+        for (const block of blocks) {
+            const cols = [...block.children].filter(
+                node => node.getAttribute("data-testid") === "column"
+            );
+            if (cols.length >= 4) {
+                const hasSidebar = cols[0].innerText.includes("Đoạn chat") || cols[0].innerText.includes("+ Phiên mới");
+                const hasEnv = cols[3].innerText.includes("Environment") || cols[3].innerText.includes("Hint level");
+                if (hasSidebar || hasEnv) return cols;
+            }
+        }
+        return [];
+    }
+
+    function applyLayout() {
+        const cols = topLevelColumns();
+        if (cols.length < 4) return;
+
+        const leftWidth = 288;
+        const gapWidth = 12;
+        const rightWidth = 448;
+
+        Object.assign(cols[0].style, {
+            flex: `0 0 ${leftWidth}px`,
+            width: `${leftWidth}px`,
+            minWidth: `${leftWidth}px`,
+            maxWidth: `${leftWidth}px`,
+            background: "#f4f4f5",
+            borderRight: "1px solid rgba(120, 120, 120, 0.14)",
+            minHeight: "calc(100vh - 12px)"
+        });
+
+        Object.assign(cols[1].style, {
+            flex: `0 0 ${gapWidth}px`,
+            width: `${gapWidth}px`,
+            minWidth: `${gapWidth}px`,
+            maxWidth: `${gapWidth}px`,
+            padding: "0"
+        });
+
+        Object.assign(cols[2].style, {
+            flex: "1 1 auto",
+            minWidth: "0",
+            overflow: "hidden"
+        });
+
+        Object.assign(cols[3].style, {
+            flex: `0 0 ${rightWidth}px`,
+            width: `${rightWidth}px`,
+            minWidth: `${rightWidth}px`,
+            maxWidth: `${rightWidth}px`,
+            background: "#fafafa",
+            borderLeft: "1px solid rgba(120, 120, 120, 0.22)",
+            boxShadow: "none",
+            minHeight: "calc(100vh - 12px)",
+            overflowY: "auto"
+        });
+
+        const chatInput = doc.querySelector('div[data-testid="stChatInput"]');
+        if (chatInput) {
+            Object.assign(chatInput.style, {
+                position: "fixed",
+                left: `${leftWidth + gapWidth + 42}px`,
+                right: `${rightWidth + 36}px`,
+                bottom: "16px",
+                zIndex: "100",
+                background: "transparent"
+            });
+        }
+
+        const messages = cols[2].querySelectorAll('div[data-testid="stChatMessage"]');
+        messages.forEach((message) => {
+            message.style.maxWidth = "760px";
+            message.style.marginLeft = "auto";
+            message.style.marginRight = "auto";
+        });
+    }
+
+    applyLayout();
+    setTimeout(applyLayout, 100);
+    setTimeout(applyLayout, 500);
+    setTimeout(applyLayout, 1000);
+
+    const observer = new MutationObserver(() => applyLayout());
+    observer.observe(doc.body, {childList: true, subtree: true});
+    </script>
+    """,
+    height=0,
+    width=0,
 )
 
 
@@ -308,6 +440,32 @@ def update_session_title(session: ChatSession, first_message: str) -> None:
         session.title = f"Bài DSA: {words}" if words else "Phiên học DSA"
 
 
+def process_pending_turn(session: ChatSession) -> None:
+    """Render user message first, then generate assistant response on the next rerun."""
+    pending_message = st.session_state.get("pending_user_message")
+    pending_session_id = st.session_state.get("pending_response_session_id")
+
+    if not pending_message or pending_session_id != session.id:
+        return
+
+    try:
+        if session.graph is None:
+            session.graph = create_agent()
+        turn = session.graph.run(pending_message)
+        assistant_message = turn.response
+    except MissingApiKeyError as exc:
+        assistant_message = f"Thiếu Gemini API key: `{exc}`. Hãy paste key vào file `.env` rồi tạo phiên mới."
+    except Exception as exc:
+        assistant_message = f"Hệ thống gặp lỗi khi xử lý lượt này: `{exc}`"
+    finally:
+        st.session_state.pending_response_session_id = None
+        st.session_state.pending_user_message = None
+
+    session.messages.append({"role": "assistant", "content": assistant_message})
+    st.rerun()
+
+
+
 if "model_name" not in st.session_state:
     st.session_state.model_name = "gemini-flash-latest"
 if "chat_sessions" not in st.session_state:
@@ -316,6 +474,10 @@ if "chat_sessions" not in st.session_state:
     st.session_state.active_session_id = first_session.id
 if "pending_delete_session_id" not in st.session_state:
     st.session_state.pending_delete_session_id = None
+if "pending_response_session_id" not in st.session_state:
+    st.session_state.pending_response_session_id = None
+if "pending_user_message" not in st.session_state:
+    st.session_state.pending_user_message = None
 
 
 session_list_col, separator_col, chat_col, detail_col = st.columns([0.17, 0.015, 0.54, 0.275], gap="small")
@@ -367,21 +529,15 @@ with chat_col:
             with st.chat_message(message["role"]):
                 st.markdown(message["content"])
 
+    if st.session_state.pending_response_session_id == session.id:
+        with st.spinner("Agent đang suy nghĩ..."):
+            process_pending_turn(session)
+
     if user_message := st.chat_input("Nhập đề bài, xin gợi ý, hoặc gửi code của bạn..."):
         session.messages.append({"role": "user", "content": user_message})
         update_session_title(session, user_message)
-
-        try:
-            if session.graph is None:
-                session.graph = create_agent()
-            turn = session.graph.run(user_message)
-            assistant_message = turn.response
-        except MissingApiKeyError as exc:
-            assistant_message = f"Thiếu Gemini API key: `{exc}`. Hãy paste key vào file `.env` rồi tạo phiên mới."
-        except Exception as exc:
-            assistant_message = f"Hệ thống gặp lỗi khi xử lý lượt này: `{exc}`"
-
-        session.messages.append({"role": "assistant", "content": assistant_message})
+        st.session_state.pending_response_session_id = session.id
+        st.session_state.pending_user_message = user_message
         st.rerun()
 
 with detail_col:

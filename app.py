@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import sys
+from html import escape
 from pathlib import Path
 from uuid import uuid4
 
@@ -281,6 +282,51 @@ div[data-testid="stChatInput"] {
     font-weight: 600;
     text-align: right;
 }
+
+.panel-code {
+    background: #f6f7f9;
+    border-radius: 10px;
+    padding: 0.85rem 0.95rem;
+    margin: 0.65rem 0 1rem 0;
+    overflow-x: auto;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.panel-test-name {
+    font-weight: 700;
+    color: #111827;
+    margin-top: 0.75rem;
+}
+
+.panel-badge {
+    display: inline-block;
+    margin-left: 0.35rem;
+    padding: 0.08rem 0.35rem;
+    border-radius: 6px;
+    background: #eefdf3;
+    color: #15803d;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.panel-caption {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    margin: 0.55rem 0 0.3rem 0;
+}
+
+/* Native Streamlit container used as right panel card */
+div[data-testid="column"]:has(.right-root) div[data-testid="stVerticalBlockBorderWrapper"] {
+    border-radius: 18px !important;
+}
+
+div[data-testid="column"]:has(.right-root) div[data-testid="stVerticalBlockBorderWrapper"]:has(.panel-title) {
+    border: 1px solid rgba(120, 120, 120, 0.18) !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05) !important;
+    background: #ffffff !important;
+}
+
 </style>
 """
 
@@ -614,15 +660,23 @@ def render_environment_panel(state) -> None:
 
 
 def render_testcases_panel(state) -> None:
-    st.markdown('<div class="panel-card"><div class="panel-title">Testcase gợi ý</div>', unsafe_allow_html=True)
-
     latest_suite = state.generated_tests[-1]
-    for test in latest_suite.tests:
-        st.markdown(f"**{test.name}** · `{test.category.value}`")
-        st.caption(test.rationale)
-        st.code(test.input)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+    with st.container(border=True):
+        st.markdown('<div class="panel-title">Testcase gợi ý</div>', unsafe_allow_html=True)
+
+        for test in latest_suite.tests:
+            st.markdown(
+                f"""
+                <div class="panel-test-name">
+                    {escape(str(test.name))}
+                    <span class="panel-badge">{escape(str(test.category.value))}</span>
+                </div>
+                <div class="panel-caption">{escape(str(test.rationale))}</div>
+                """,
+                unsafe_allow_html=True,
+            )
+            st.code(str(test.input), language="python")
 
 
 def render_validation_panel(state) -> None:

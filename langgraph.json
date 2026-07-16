@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "dsa_tutor": "dsa_agent.studio:graph"
+  },
+  "env": ".env"
+}

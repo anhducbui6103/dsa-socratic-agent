@@ -454,23 +454,18 @@ def update_session_title(session: ChatSession, first_message: str) -> None:
     if session.title != "Phiên mới":
         return
 
-    normalized = first_message.lower()
-
-    if "```" in first_message or "def " in normalized or "class " in normalized:
-        session.title = "Phân tích code"
-    elif any(keyword in normalized for keyword in ("gợi ý", "hint", "bị tắc", "không biết làm")):
-        session.title = "Xin gợi ý"
-    elif any(keyword in normalized for keyword in ("full code", "lời giải", "đáp án")):
-        session.title = "Yêu cầu lời giải"
-    elif any(keyword in normalized for keyword in ("quy hoạch động", "dp")):
-        session.title = "Bài quy hoạch động"
-    elif any(keyword in normalized for keyword in ("đồ thị", "graph", "bfs", "dfs")):
-        session.title = "Bài đồ thị"
-    elif any(keyword in normalized for keyword in ("mảng", "chuỗi", "array", "string")):
-        session.title = "Bài mảng/chuỗi"
-    else:
+    if session.graph is None:
         words = " ".join(first_message.split()[:5])
         session.title = f"Bài DSA: {words}" if words else "Phiên học DSA"
+        return
+
+    try:
+        title = session.graph.agent.generate_session_title([first_message]).strip()
+    except Exception:
+        words = " ".join(first_message.split()[:5])
+        title = f"Bài DSA: {words}" if words else "Phiên học DSA"
+
+    session.title = title or "Phiên học DSA"
 
 
 # =========================

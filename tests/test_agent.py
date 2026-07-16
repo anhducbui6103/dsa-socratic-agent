@@ -1,11 +1,11 @@
 import unittest
 
 from dsa_agent import DsaLearningAgent
-from dsa_agent.classifier import classify_problem
+from dsa_agent.agents import PedagogyCriticAgent, TestcaseGeneratorAgent
 from dsa_agent.graph_workflow import DsaTutorGraph
 from dsa_agent.llm_client import GeminiLlmClient, MissingApiKeyError
-from dsa_agent.models import GeneratedTestCase, Intent, TestCategory, ValidationStatus
-from dsa_agent.quality import CodeExecutionValidatorAgent, PedagogyCriticAgent, TestcaseGeneratorAgent, validate_code
+from dsa_agent.models import Classification, GeneratedTestCase, Intent, TestCategory, ValidationStatus
+from dsa_agent.quality import CodeExecutionValidatorAgent, validate_code
 
 
 class FakeLlmClient:
@@ -62,17 +62,15 @@ class TypoIntentLlmClient(FakeLlmClient):
         return super().generate(system_prompt, user_prompt)
 
 
-class ClassifierTests(unittest.TestCase):
-    def test_classifies_dynamic_programming_problem(self) -> None:
-        result = classify_problem("Tìm số cách leo cầu thang bằng quy hoạch động")
-
-        self.assertEqual(result.topic, "dynamic_programming")
-        self.assertGreater(result.confidence, 0.5)
-
-    def test_classifies_sliding_window_problem(self) -> None:
-        result = classify_problem("Tìm độ dài đoạn con liên tiếp có tổng lớn nhất")
-
-        self.assertEqual(result.topic, "sliding_window")
+class UnsafePedagogyLlmClient(FakeLlmClient):
+    def generate(self, system_prompt: str, user_prompt: str) -> str:
+        if "Pedagogy Critic Agent" in system_prompt:
+            return (
+                '{"safe_to_send":false,"risk_level":"high",'
+                '"issues":["Phản hồi có dấu hiệu chứa full code."],'
+                '"revision_instruction":"Bỏ code và hỏi theo kiểu Socratic."}'
+            )
+        return super().generate(system_prompt, user_prompt)
 
 
 class AgentTests(unittest.TestCase):
@@ -89,6 +87,15 @@ class AgentTests(unittest.TestCase):
         self.assertTrue(first.state.generated_tests)
         self.assertIsNotNone(second.pedagogy_review)
         self.assertTrue(second.state.agent_trace)
+
+    def test_problem_classification_uses_llm_agent_output(self) -> None:
+        agent = DsaLearningAgent(llm_client=FakeLlmClient())
+
+        turn = agent.handle("Cho mảng, tìm đoạn con liên tiếp có tổng lớn nhất")
+
+        self.assertEqual(turn.classification.topic, "sliding_window")
+        self.assertEqual(turn.classification.pattern, "window_trace")
+        self.assertTrue(any(item.node_name == "Problem Classifier" for item in turn.state.agent_trace))
 
     def test_direct_solution_is_redirected(self) -> None:
         agent = DsaLearningAgent(llm_client=FakeLlmClient())
@@ -137,19 +144,25 @@ class AgentTests(unittest.TestCase):
     def test_gemini_client_requires_api_key(self) -> None:
         import os
 
-        old_key = os.environ.pop("GEMINI_API_KEY", None)
+        old_key = os.environ.pop("OPENROUTER_API_KEY", None)
         try:
             with self.assertRaises(MissingApiKeyError):
                 GeminiLlmClient.from_env()
         finally:
             if old_key:
-                os.environ["GEMINI_API_KEY"] = old_key
+                os.environ["OPENROUTER_API_KEY"] = old_key
 
 
 class QualityAgentTests(unittest.TestCase):
     def test_testcase_generator_creates_basic_and_edge_cases(self) -> None:
-        classification = classify_problem("Tìm số cách leo cầu thang bằng quy hoạch động")
-        suite = TestcaseGeneratorAgent().generate("Tìm số cách leo cầu thang", classification)
+        classification = Classification(
+            topic="dynamic_programming",
+            pattern="state_transition",
+            confidence=0.9,
+            key_signals=["bài toán con", "base case"],
+            recommended_hint_path=["state_definition", "transition_question"],
+        )
+        suite = TestcaseGeneratorAgent(FakeLlmClient()).generate("Tìm số cách leo cầu thang", classification)
 
         categories = {test.category for test in suite.tests}
         self.assertIn(TestCategory.BASIC, categories)
@@ -158,7 +171,7 @@ class QualityAgentTests(unittest.TestCase):
 
     def test_pedagogy_critic_flags_full_code(self) -> None:
         agent = DsaLearningAgent(llm_client=FakeLlmClient())
-        review = PedagogyCriticAgent().review("```python\ndef solve():\n    pass\n```", agent.state)
+        review = PedagogyCriticAgent(UnsafePedagogyLlmClient()).review("```python\ndef solve():\n    pass\n```", agent.state)
 
         self.assertFalse(review.safe_to_send)
         self.assertEqual(review.risk_level, "high")

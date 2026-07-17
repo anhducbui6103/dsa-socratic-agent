@@ -38,6 +38,7 @@ class ValidationStatus(str, Enum):
 class Classification:
     topic: str
     pattern: str
+    difficulty: str
     confidence: float
     key_signals: list[str]
     recommended_hint_path: list[str]

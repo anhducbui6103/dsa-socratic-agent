@@ -18,7 +18,9 @@ class SessionTitleAgent:
         system_prompt = (
             "Bạn là Session Title Agent cho DSA Tutor. "
             "Chỉ trả về JSON hợp lệ, không markdown. "
-            "Tiêu đề 3-6 từ, ngắn, không chứa code dài hoặc dữ liệu nhạy cảm."
+            "Nhiệm vụ là tạo tiêu đề ngắn cho phiên học. "
+            "Tiêu đề nên dài 3-6 từ, súc tích, phản ánh chủ đề chính, "
+            "và không chứa code dài hoặc dữ liệu nhạy cảm."
         )
         user_prompt = (
             "Hãy đặt tiêu đề ngắn cho phiên chat học DSA sau. JSON schema bắt buộc:\n"

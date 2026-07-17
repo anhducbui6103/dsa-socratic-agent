@@ -37,9 +37,16 @@ class DsaLearningAgent:
         return self.run_intent(intent, message)
 
     def detect_intent(self, message: str) -> Intent:
-        intent = self.intent_detector.detect(message)
-        self._trace("Intent Detector", "ok", f"Detected {intent.value}", intent=intent.value)
-        return intent
+        detection = self.intent_detector.detect_with_metadata(message, self.state)
+        self._trace(
+            "Intent Detector",
+            "ok",
+            f"Detected {detection.intent.value}",
+            intent=detection.intent.value,
+            confidence=detection.confidence,
+            reasoning_summary=detection.reasoning_summary,
+        )
+        return detection.intent
 
     def record_attempt(self, message: str) -> None:
         self.state.student_attempts.append(message)
@@ -68,6 +75,7 @@ class DsaLearningAgent:
             "ok",
             f"Classified as {classification.topic}",
             topic=classification.topic,
+            difficulty=classification.difficulty,
             confidence=classification.confidence,
         )
 
@@ -75,6 +83,7 @@ class DsaLearningAgent:
         self.state.next_action = "ask_student_understanding"
         guideline = (
             f"Mình nghiêng về nhóm `{classification.topic}` "
+            f"với độ khó `{classification.difficulty}` "
             f"(độ tin cậy khoảng {classification.confidence:.0%}).\n\n"
             "Trước khi đi vào cách làm, em thử tự mô tả lại input/output và ràng buộc chính của bài. "
             "Nếu phải giải tay một ví dụ nhỏ, em sẽ theo dõi thông tin nào sau mỗi bước?\n\n"

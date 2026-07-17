@@ -12,20 +12,23 @@ class FakeLlmClient:
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         if "Intent Detector" in system_prompt:
             text = user_prompt.split("Message:\n", 1)[-1].lower()
+            context = user_prompt.split("Message:\n", 1)[0].lower()
             if "full code" in text or "lời giải" in text:
-                return '{"intent":"ASK_DIRECT_SOLUTION"}'
+                return '{"intent":"ASK_DIRECT_SOLUTION","confidence":0.99,"reasoning_summary":"Direct solution request."}'
             if "def solve" in text or "```" in text:
-                return '{"intent":"SUBMIT_CODE"}'
+                return '{"intent":"SUBMIT_CODE","confidence":0.99,"reasoning_summary":"Code submission."}'
             if "gợi ý" in text or "hint" in text:
-                return '{"intent":"REQUEST_HINT"}'
+                return '{"intent":"REQUEST_HINT","confidence":0.98,"reasoning_summary":"Student asks for more help."}'
             if "ý tưởng" in text:
-                return '{"intent":"SUBMIT_APPROACH"}'
+                return '{"intent":"SUBMIT_APPROACH","confidence":0.9,"reasoning_summary":"Student shares an approach."}'
+            if "wait_for_student_attempt" in context:
+                return '{"intent":"SUBMIT_APPROACH","confidence":0.88,"reasoning_summary":"Student is responding with reasoning."}'
             if "cho mảng" in text or "tìm" in text:
-                return '{"intent":"SUBMIT_PROBLEM"}'
-            return '{"intent":"ASK_THEORY"}'
+                return '{"intent":"SUBMIT_PROBLEM","confidence":0.93,"reasoning_summary":"Student states a new problem."}'
+            return '{"intent":"ASK_THEORY","confidence":0.84,"reasoning_summary":"Student asks for theory."}'
         if "DSA Problem Classifier" in system_prompt:
             return (
-                '{"topic":"sliding_window","pattern":"window_trace","confidence":0.82,'
+                '{"topic":"sliding_window","pattern":"window_trace","difficulty":"medium","confidence":0.82,'
                 '"key_signals":["đoạn con liên tiếp","mảng"],'
                 '"recommended_hint_path":["input_output","valid_window"]}'
             )
@@ -58,7 +61,7 @@ class FakeLlmClient:
 class TypoIntentLlmClient(FakeLlmClient):
     def generate(self, system_prompt: str, user_prompt: str) -> str:
         if "Intent Detector" in system_prompt:
-            return '{"intent":"SUBMITS_PROBLEM"}'
+            return '{"intent":"SUBMITS_PROBLEM","confidence":0.75,"reasoning_summary":"Typo from model."}'
         return super().generate(system_prompt, user_prompt)
 
 
@@ -88,6 +91,17 @@ class AgentTests(unittest.TestCase):
         self.assertIsNotNone(second.pedagogy_review)
         self.assertTrue(second.state.agent_trace)
 
+    def test_student_reply_after_hint_does_not_auto_increment_hint(self) -> None:
+        agent = DsaLearningAgent(llm_client=FakeLlmClient())
+
+        agent.handle("Cho mảng, tìm đoạn con liên tiếp có tổng lớn nhất")
+        second = agent.handle("Cho em gợi ý")
+        third = agent.handle("Em nghĩ mình nên giữ tổng hiện tại và so với tốt nhất từ trước")
+
+        self.assertEqual(second.state.hint_level, 1)
+        self.assertEqual(third.intent, Intent.SUBMIT_APPROACH)
+        self.assertEqual(third.state.hint_level, 1)
+
     def test_problem_classification_uses_llm_agent_output(self) -> None:
         agent = DsaLearningAgent(llm_client=FakeLlmClient())
 
@@ -95,6 +109,7 @@ class AgentTests(unittest.TestCase):
 
         self.assertEqual(turn.classification.topic, "sliding_window")
         self.assertEqual(turn.classification.pattern, "window_trace")
+        self.assertEqual(turn.classification.difficulty, "medium")
         self.assertTrue(any(item.node_name == "Problem Classifier" for item in turn.state.agent_trace))
 
     def test_direct_solution_is_redirected(self) -> None:
@@ -158,6 +173,7 @@ class QualityAgentTests(unittest.TestCase):
         classification = Classification(
             topic="dynamic_programming",
             pattern="state_transition",
+            difficulty="medium",
             confidence=0.9,
             key_signals=["bài toán con", "base case"],
             recommended_hint_path=["state_definition", "transition_question"],

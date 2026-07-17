@@ -15,9 +15,12 @@ class TestcaseGeneratorAgent:
     def generate(self, problem: str, classification: Classification | None = None) -> TestSuite:
         topic = classification.topic if classification else "unknown"
         system_prompt = (
-            "Bạn là Testcase Generator Agent cho bài DSA. Chỉ trả về JSON hợp lệ, không markdown. "
-            "Testcase ưu tiên hỗ trợ học tập, trace tay và kiểm edge case. "
-            "Nếu chưa chắc expected output, đặt null."
+            "Bạn là Testcase Generator Agent cho bài DSA. "
+            "Chỉ trả về JSON hợp lệ, không markdown. "
+            "Nhiệm vụ là sinh testcase phục vụ học tập, trace tay và kiểm edge case, "
+            "không giải thích dài dòng. "
+            "Ưu tiên testcase nhỏ nhưng giàu tín hiệu. "
+            "Nếu chưa chắc expected output thì đặt null."
         )
         user_prompt = (
             "Sinh testcase cho bài dưới đây. JSON schema bắt buộc:\n"
@@ -25,9 +28,13 @@ class TestcaseGeneratorAgent:
             '"tests":[{"name":"string","input":"string","expected_output":"string|null",'
             '"purpose":"validation|trace_only","category":"basic|edge|adversarial|stress",'
             '"rationale":"string"}]}\n\n'
-            "Với lời giải dạng hàm, đặt input là Python assignments khớp tên tham số, ví dụ:\n"
+            "Yêu cầu:\n"
+            "- Với lời giải dạng hàm, đặt input là Python assignments khớp tên tham số.\n"
+            "- Chỉ đặt expected_output khi kết quả chắc chắn rõ.\n"
+            "- Bao phủ ít nhất case cơ bản và edge case nếu có thể.\n"
+            "- `recommended_hint_path` hoặc hướng học không cần lặp lại ở đây; chỉ tập trung vào testcase.\n\n"
+            "Ví dụ input cho function-style:\n"
             "nums = [2, 7, 11, 15]\ntarget = 9\n"
-            "Chỉ đặt expected_output khi kết quả chắc chắn rõ.\n\n"
             f"Topic: {topic}\n"
             f"Đề bài:\n{problem}"
         )
